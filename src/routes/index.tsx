@@ -1,15 +1,14 @@
 import { useLocation } from "@solidjs/router";
-import { createMemo, createSignal, For, Show, ErrorBoundary } from "solid-js";
+import { createMemo, createSignal, For, Show } from "solid-js";
+import CategoryFilter from "~/components/category-filter";
+import CourseCard from "~/components/course-card";
+import EmptyState from "~/components/empty-state";
+import Footer from "~/components/footer";
 import Header from "~/components/header";
-import { Icons } from "~/components/icons";
 import LessonModal from "~/components/lesson-modal";
 import Search from "~/components/search";
-import CategoryFilter from "~/components/category-filter";
-import EmptyState from "~/components/empty-state";
-import CourseCard from "~/components/course-card";
-import Footer from "~/components/footer";
 import { TRAINING_DATA } from "~/lib/training_data";
-import type { Lesson, Course } from "~/lib/types";
+import type { Course, Lesson } from "~/lib/types";
 
 // Constants
 const DEFAULT_CATEGORY = "All";
@@ -104,40 +103,23 @@ export default function Home() {
         </div>
 
         {/* Course Grid */}
-        <ErrorBoundary
-          fallback={(error) => (
-            <div class="text-center py-20">
-              <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6 text-red-400">
-                <Icons.alertCircle size={32} />
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">
-                Something went wrong
-              </h3>
-              <p class="text-gray-500">
-                {error.message ||
-                  "An unexpected error occurred. Please try refreshing the page."}
-              </p>
-            </div>
-          )}
-        >
-          <Show when={filteredCourses().length > 0} fallback={<EmptyState />}>
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              role="region"
-              aria-label="Course listings"
-              data-testid="course-grid"
-            >
-              <For each={filteredCourses()}>
-                {(course) => (
-                  <CourseCard
-                    course={course}
-                    onLessonSelect={handleLessonSelect}
-                  />
-                )}
-              </For>
-            </div>
-          </Show>
-        </ErrorBoundary>
+        <Show when={filteredCourses().length > 0} fallback={<EmptyState />}>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            role="region"
+            aria-label="Course listings"
+            data-testid="course-grid"
+          >
+            <For each={filteredCourses()}>
+              {(course) => (
+                <CourseCard
+                  course={course}
+                  onLessonSelect={handleLessonSelect}
+                />
+              )}
+            </For>
+          </div>
+        </Show>
       </main>
 
       <Footer />
