@@ -9,6 +9,7 @@ import {
   Layers,
   X,
   ArrowRight,
+  CircleAlert,
 } from "lucide-solid";
 
 export const Icons = {
@@ -22,4 +23,5 @@ export const Icons = {
   layers: Layers,
   x: X,
   arrowRight: ArrowRight,
+  alertCircle: CircleAlert,
 };

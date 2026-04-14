@@ -1,4 +1,4 @@
-interface Lesson {
+export interface Lesson {
   id: string;
   title: string;
   description: string;
@@ -7,7 +7,7 @@ interface Lesson {
   assets: { id: string; url: string; type: string }[];
 }
 
-interface Course {
+export interface Course {
   id: string;
   title: string;
   category: string;
